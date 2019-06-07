@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
-    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="stylesheet" href="style.css">
 
 </head>
 <body class="bg-dark pt-4">
@@ -42,27 +42,31 @@
             </p>
             <hr>
             <br>
-            <label for="greetingsBox">Type your message here: <input type="text" id="greetingsBox" class="form-control"/></label>
+            <label for="greetingsBox">Type your message here: <input type="text" id="greetingsBox" class="form-control"  /></label>
 
-            <div class="col-6 mx-auto p-2 greetingsBoxHolder">
-                <h3><!-- Your message comes here--></h3>
+            <div class="col-6 mx-auto p-2 greetingsBoxHolder" id="textBox">
+            <h3><!-- Your message comes here--></h3>
             </div>
         </div>
         <script>
 
-function placeholder(){
-var greetingsBox = document.getElementById("greetingsBox");
-var message = document.getElementById("greetingsBox").value;
 
-if (message == "") {
+function placeholder(){
+    var greetingsBox = document.getElementById("greetingsBox");
+    var message = document.getElementById("greetingsBox").value;
+    var textBox = document.getElementById("textBox");
+    if (message == "") {
     greetingsBox.placeholder = "sorry nothing to show";
 }
-else {
-    greetingsBox.innerHTML = message; 
 }
-}
-
 placeholder();
+
+document.getElementById("greetingsBox").addEventListener("input", textToBox);
+
+ function textToBox (greetingsBox, textBox) {
+     var message = document.getElementById("greetingsBox").value;
+     document.getElementById("textBox").innerHTML = message;
+ }
 
 
         </script>

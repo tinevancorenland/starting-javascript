@@ -50,22 +50,24 @@
         </div>
         <script>
 
-
-function placeholder(){
     var greetingsBox = document.getElementById("greetingsBox");
     var message = document.getElementById("greetingsBox").value;
     var textBox = document.getElementById("textBox");
+
+function placeholder(){
     if (message == "") {
     greetingsBox.placeholder = "sorry nothing to show";
 }
 }
 placeholder();
 
-document.getElementById("greetingsBox").addEventListener("input", textToBox);
+// https://www.sitepoint.com/community/t/how-to-copy-the-content-of-a-form-field-into-a-div-as-it-is-being-typed/205689
 
- function textToBox (greetingsBox, textBox) {
+greetingsBox.addEventListener("input", textToBox);
+
+ function textToBox () {
      var message = document.getElementById("greetingsBox").value;
-     document.getElementById("textBox").innerHTML = message;
+     textBox.innerHTML = message;
  }
 
 
@@ -109,7 +111,33 @@ document.getElementById("greetingsBox").addEventListener("input", textToBox);
             </table>
         </div>
         <script>
-            // Write your code here
+            var pizzaOrders = document.getElementById("pizzaOrders");
+            var name = document.getElementById("name");
+            var pizza = document.getElementById("pizza");
+            var size = document.getElementById("size");
+
+            pizzaOrders.addEventListener("keydown", function(e){
+                if (e.keyCode ===13) { //checks whether the pressed key is "Enter"
+                checkValue();
+            }
+            });
+            
+            function checkValue() {
+                if(name.value !== "" && pizza.value !=="" && size.value !==""){
+                    var row = pizzaOrders.insertRow(-1);
+                    var newName = row.insertCell(0);
+                    newName.innerText = name.value;
+                    var newPizza = row.insertCell(1);
+                    newPizza.innerText = pizza.value;
+                    var newSize = row.insertCell(2);
+                    newSize.innerText = size.value;
+                    var newRemarks = row.insertCell(3);
+                    newRemarks.innerText = remarks.value;
+                }
+                else {
+                    alert("please fill in your name, choice of pizza and size.");
+                }
+            }
         </script>
     </div>
     <!-- END OF Part 2 -->
@@ -131,14 +159,37 @@ document.getElementById("greetingsBox").addEventListener("input", textToBox);
             <br>
             <button id="launchMe" class="btn btn-success play-button"><i class="fa fa-play"></i></button>
             <p id="listHolder">This is what you need to make delicious spaghetti:
-                <span>Pasta</span><span>Tomato Sauce</span><span>Cheese</span><span>Choose your final ingredient</span></p>
+                <span>Pasta</span><span>Tomato Sauce</span><span>Cheese</span><span> <input type="text" id="input" placeholder="Choose your final ingredient"></span></p>
 
             <br>
             <br>
 
         </div>
         <script>
-            // Write your code here
+
+// document.getElementById("launchMe").addEventListener("click", makeList);
+// function makeList() {
+    var list = document.getElementById("listHolder");
+    var info = list.getElementsByTagName("span");
+    info[0].innerHTML = "<li>" + info[0].innerHTML + "</li>";
+    info[1].innerHTML = "<li>" + info[1].innerHTML + "</li>";
+    info[2].innerHTML = "<li>" + info[2].innerHTML + "</li>";
+    info[3].innerHTML = "<li>" + info[3].innerHTML + "</li>";
+
+    document.getElementById("launchMe").addEventListener("click", addIngredient);
+
+    function addIngredient() {
+        var newIngredient = document.getElementById("input").value;
+        var list = document.getElementById("listHolder");
+        var li = document.createElement("li");
+        li.appendChild(document.createTextNode(newIngredient));
+        list.appendChild(li);
+        newIngredient.value = "Choose your final ingredient";
+
+    }
+
+// }
+
         </script>
     </div>
     <!-- END OF Part 3 -->
